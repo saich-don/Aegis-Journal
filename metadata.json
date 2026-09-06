@@ -1,0 +1,6 @@
+{
+  "name": "Aegis Journal",
+  "description": "Enterprise-grade intelligent personal growth and memory system with voice journaling, cross-journal AI recall, cognitive synthesis, and zero-trust security.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
