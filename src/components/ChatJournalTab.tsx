@@ -443,7 +443,7 @@ export const ChatJournalTab: React.FC<ChatJournalTabProps> = ({
               Multi-Modal Spoken Journaling Mode
             </h3>
             <p className="text-xs text-slate-400">
-              Speak your thoughts naturally. Aegis transcribes and processes your spoken reflections with Gemini 2.5 Flash in real time.
+              Speak your thoughts naturally. Aegis transcribes and processes your spoken reflections with Gemini 3.6 Flash in real time.
             </p>
           </div>
         </div>
@@ -636,7 +636,7 @@ export const ChatJournalTab: React.FC<ChatJournalTabProps> = ({
               </div>
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed">
-              Real-time cognitive trajectory evaluated by Gemini 2.5 Flash.
+              Real-time cognitive trajectory evaluated by Gemini 3.6 Flash.
             </p>
           </div>
 
@@ -702,7 +702,7 @@ export const ChatJournalTab: React.FC<ChatJournalTabProps> = ({
                   Aegis AI Companion
                 </h3>
                 <p className="text-[11px] text-slate-400">
-                  Empathetic multi-modal reflection powered by Gemini 2.5 Flash
+                  Empathetic multi-modal reflection powered by Gemini 3.6 Flash
                 </p>
               </div>
             </div>
@@ -894,7 +894,7 @@ export const ChatJournalTab: React.FC<ChatJournalTabProps> = ({
                   <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono">
                     <span>Aegis Zero-Trust</span>
                     <span>•</span>
-                    <span>Gemini 2.5 Flash</span>
+                    <span>Gemini 3.6 Flash</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {/* Voice Dictation Button */}

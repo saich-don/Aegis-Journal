@@ -18,9 +18,56 @@ function getGemini(): GoogleGenAI {
     );
   }
   if (!geminiClient) {
-    geminiClient = new GoogleGenAI({ apiKey });
+    geminiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
   }
   return geminiClient;
+}
+
+// Model configuration: gemini-3.6-flash as requested by the Gemini API update message, with gemini-3.8-flash fallback
+const PRIMARY_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+const FALLBACK_GEMINI_MODEL = 'gemini-3.8-flash';
+
+async function generateWithGemini(
+  ai: GoogleGenAI,
+  params: {
+    contents: any;
+    config?: any;
+  }
+) {
+  try {
+    return await ai.models.generateContent({
+      model: PRIMARY_GEMINI_MODEL,
+      contents: params.contents,
+      config: params.config,
+    });
+  } catch (err: unknown) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    if (
+      (errMsg.includes('404') ||
+        errMsg.includes('not found') ||
+        errMsg.includes('NOT_FOUND') ||
+        errMsg.includes('no longer available')) &&
+      PRIMARY_GEMINI_MODEL !== FALLBACK_GEMINI_MODEL
+    ) {
+      console.warn(
+        `Primary model ${PRIMARY_GEMINI_MODEL} failed, falling back to ${FALLBACK_GEMINI_MODEL}:`,
+        errMsg
+      );
+      return await ai.models.generateContent({
+        model: FALLBACK_GEMINI_MODEL,
+        contents: params.contents,
+        config: params.config,
+      });
+    }
+    throw err;
+  }
 }
 
 // Enterprise Token Verification Middleware
@@ -142,8 +189,7 @@ Guidelines:
 - When fitting, gently ask 1 mindful, open-ended question to help them reflect deeper, examine an alternative perspective, or identify what they need right now.
 - Never judge, patronize, or lecture.`;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+        const response = await generateWithGemini(ai, {
           contents: sanitizedHistory,
           config: {
             systemInstruction,
@@ -200,8 +246,7 @@ Perform the following tasks:
 6. "sentimentLabel": Pick the best matching label: "Positive", "Neutral", "Reflective", "Constructive", or "Challenging".
 7. "actionItems": Extract any practical, actionable to-do items, healthy commitments, or proactive next steps mentioned or implied. Assign each a unique ID, category ("Personal", "Work", "Wellness", "Mindset"), and completed: false. If no explicit tasks were mentioned, formulate 1 or 2 gentle, constructive micro-commitments aligned with their reflection.`;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+        const response = await generateWithGemini(ai, {
           contents: prompt,
           config: {
             responseMimeType: 'application/json',
@@ -344,8 +389,7 @@ TASK:
 4. Provide a supportive, forward-looking coaching insight or question to help them integrate what they learned.
 5. Be warm, objective, insightful, and grounded in their actual words.`;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+        const response = await generateWithGemini(ai, {
           contents: prompt,
           config: {
             responseMimeType: 'application/json',
@@ -445,8 +489,7 @@ Synthesize their entries into an executive brief:
 6. "actionItemsAudit": Audit of action items with total count, completed count, resolutionRate string (e.g. "75%"), and strategic recommendations for task execution.
 7. "growthCoachingDirectives": 3 to 4 prioritized, actionable growth coaching directives for the upcoming week based directly on their recorded patterns.`;
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+        const response = await generateWithGemini(ai, {
           contents: prompt,
           config: {
             responseMimeType: 'application/json',

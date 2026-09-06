@@ -319,7 +319,7 @@ ${weeklyDigest.growthCoachingDirectives.map((d, i) => `${i + 1}. ${d}`).join('\n
                 <span className="text-[10px] font-bold uppercase tracking-wider font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded">
                   Flagship 3 • Executive Synthesis
                 </span>
-                <span className="text-xs text-slate-400 font-mono">Gemini 2.5 Flash Deep Engine</span>
+                <span className="text-xs text-slate-400 font-mono">Gemini 3.6 Flash Deep Engine</span>
               </div>
               <h2 className="text-base sm:text-lg font-bold text-slate-100 mt-0.5">
                 Weekly Cognitive & Growth Digest

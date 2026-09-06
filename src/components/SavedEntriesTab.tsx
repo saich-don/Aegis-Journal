@@ -258,7 +258,7 @@ export const SavedEntriesTab: React.FC<SavedEntriesTabProps> = ({
                 </span>
               </div>
               <span className="text-[11px] text-slate-500 font-mono">
-                Gemini 2.5 Flash Retrospective Engine
+                Gemini 3.6 Flash Retrospective Engine
               </span>
             </div>
 

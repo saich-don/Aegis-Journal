@@ -48,7 +48,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
-            Beyond everyday journaling. Aegis unites multi-modal voice dictation, conversational reflection with Gemini 2.5 Flash, cross-journal recall (&ldquo;Ask My Past Self&rdquo;), and executive cognitive digests in an isolated multi-tenant Firestore architecture.
+            Beyond everyday journaling. Aegis unites multi-modal voice dictation, conversational reflection with Gemini 3.6 Flash, cross-journal recall (&ldquo;Ask My Past Self&rdquo;), and executive cognitive digests in an isolated multi-tenant Firestore architecture.
           </p>
         </div>
 
